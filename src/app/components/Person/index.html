@@ -1,0 +1,27 @@
+<div class="person">
+  <div *ngIf="!_editable" class="wrapper">
+    <div>{{ name }}</div>
+    <button (click)="_editable = !_editable">edit</button>
+  </div>
+
+  <div *ngIf="_editable" class="wrapper">
+    <input #nameInput [value]="name" />
+    <button (click)="_editable = !_editable; _changeInfo({ name: nameInput.value })">save</button>
+  </div>
+
+  <div *ngIf="selected">
+    <div>
+      <span>Add</span>
+      <select #newPersonRole>
+        <option>father</option>
+        <option>mother</option>
+        <option>daughter</option>
+        <option>son</option>
+      </select>
+    </div>
+    <div>
+      <input #newPersonNameInput />
+      <button (click)="_addPerson({ name: newPersonNameInput. value, role: newPersonRole.value })">save</button>
+    </div>
+  </div>
+</div>
