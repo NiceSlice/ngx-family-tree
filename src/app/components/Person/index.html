@@ -1,32 +1,42 @@
 <div class="person" (click)="_selectPerson()">
-  <div *ngIf="!_editable" [ngClass]="!selected ? ['person-info', 'selectable'] : 'person-info'">
-    <span>{{ role }}</span>
-    <span>{{ person?.name }}</span>
-    <span>{{ person?.sex }}</span>
+  <div *ngIf="!selected" class="person-info selectable">
+    <div>{{ role }}</div>
+    <div>{{ person?.name }}</div>
+    <div>{{ person?.sex }}</div>
     <button *ngIf="selected" (click)="_editable = !_editable">edit</button>
   </div>
 
-  <div *ngIf="_editable" class="person-info">
-    <input #nameInput [value]="person?.name" />
-    <select #sexInput [value]="person?.sex">
-      <option>male</option>
-      <option>female</option>
-    </select>
-    <button (click)="_editable = !_editable; _changeInfo({ name: nameInput.value, sex: sexInput.value })">save</button>
-  </div>
+  <div *ngIf="selected" class="selected-person">
+    <div class="person-info">
+      <div *ngIf="!_editable">
+        <div>{{ person?.name }}</div>
+        <div>{{ person?.sex }}</div>
+        <button *ngIf="selected" (click)="_editable = !_editable">edit</button>
+      </div>
 
-  <div *ngIf="selected" class="add-person">
-    <div>
-      <span>Add</span>
-      <select #newPersonRole>
-        <option>father</option>
-        <option>mother</option>
-        <option>child</option>
-      </select>
+      <div *ngIf="_editable">
+        <input #nameInput [value]="person?.name" />
+        <select #sexInput [value]="person?.sex">
+          <option>male</option>
+          <option>female</option>
+        </select>
+        <button (click)="_editable = !_editable; _changeInfo({ name: nameInput.value, sex: sexInput.value })">save</button>
+      </div>
     </div>
-    <div>
-      <input #newPersonNameInput />
-      <button (click)="_addPerson({ name: newPersonNameInput. value, role: newPersonRole.value })">save</button>
+
+    <div class="add-person">
+      <div>
+        <span>Add</span>
+        <select #newPersonRole>
+          <option>father</option>
+          <option>mother</option>
+          <option>child</option>
+        </select>
+      </div>
+      <div>
+        <input #newPersonNameInput />
+        <button (click)="_addPerson({ name: newPersonNameInput. value, role: newPersonRole.value })">save</button>
+      </div>
     </div>
   </div>
 </div>

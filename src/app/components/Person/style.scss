@@ -19,9 +19,13 @@
     }
   }
 
-  .add-person {
-    background-color: rgb(146, 190, 231);
-    padding: 2rem;
-    border-radius: 10px;
+  .selected-person {
+    display: flex;
+
+    .add-person {
+      background-color: rgb(146, 190, 231);
+      padding: 2rem;
+      border-radius: 10px;
+    }
   }
 }
