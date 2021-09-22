@@ -11,7 +11,7 @@ import { PersonTracking } from './services';
 export class AppComponent implements OnDestroy {
   title = 'ngx-family-tree';
 
-  public _people = [new PersonModel(0, 'name', 'female')];
+  public _people = [new PersonModel(0, 'Name', 'female')];
   private _countId = 1;
   private _selectedId = 0;
   public _selectedFamily = this._selectFamily();
@@ -71,6 +71,13 @@ export class AppComponent implements OnDestroy {
       this._people.filter(person => selectedPerson?.mothersId?.includes(person.id)),
       this._people.filter(person => selectedPerson?.childrenId?.includes(person.id)),
     ));
+  }
+
+  public _clear() {
+    this._people = [new PersonModel(0, 'Name', 'female')];
+    this._countId = 1;
+    this._selectedId = 0;
+    this._selectFamily();
   }
 
   public ngOnDestroy() {
