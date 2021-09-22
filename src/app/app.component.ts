@@ -15,8 +15,8 @@ export class AppComponent implements OnDestroy {
   private _countId = 1;
   private _selectedId = 0;
   public _selectedFamily = this._selectFamily();
-
   private _subscriptions: Subscription[] = [];
+  private _localStorage = window.localStorage;
 
   constructor(private _personTracking: PersonTracking) {
     this._subscriptions.push(
@@ -30,12 +30,14 @@ export class AppComponent implements OnDestroy {
         this._selectPerson(id);
       }),
     );
+    this._getData();
   }
 
   public _changeInfo(info: any) {
     this._people.map(person => {
       if (person.id === info.id) Object.assign(person, info);
     });
+    this._storeData();
   }
 
   public _addPerson(info: any) {
@@ -56,11 +58,13 @@ export class AppComponent implements OnDestroy {
 
     this._people.push(newPerson);
     this._selectFamily();
+    this._storeData();
   }
 
   private _selectPerson(id: number) {
     this._selectedId = id;
     this._selectFamily();
+    this._storeData();
   }
 
   private _selectFamily(): any {
@@ -77,6 +81,25 @@ export class AppComponent implements OnDestroy {
     this._people = [new PersonModel(0, 'Name', 'female')];
     this._countId = 1;
     this._selectedId = 0;
+    this._selectFamily();
+    this._storeData();
+  }
+
+  private _storeData() {
+    this._localStorage.setItem('familyTree', JSON.stringify(this._people));
+    this._localStorage.setItem('familyTreeCountId', String(this._countId));
+    this._localStorage.setItem('familyTreeSelected', String(this._selectedId));
+  }
+
+  private _getData() {
+    const familyTree = this._localStorage.getItem('familyTree');
+    const familyTreeCountId = this._localStorage.getItem('familyTreeCountId');
+    const familyTreeSelected = this._localStorage.getItem('familyTreeSelected');
+    if (familyTree !== null && familyTreeCountId !== null && familyTreeSelected !== null) {
+      this._people = JSON.parse(familyTree);
+      this._countId = Number(familyTreeCountId);
+      this._selectedId = Number(familyTreeSelected);
+    }
     this._selectFamily();
   }
 
