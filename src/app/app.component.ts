@@ -52,7 +52,12 @@ export class AppComponent implements OnDestroy {
       newPerson.childrenId?.push(this._selectedId);
       (selectedPerson as PersonModel).mothersId.push(newPerson.id);
     } else {
-      selectedPerson?.sex === 'female' ? newPerson.mothersId.push(this._selectedId) : newPerson.fathersId.push(this._selectedId);
+      if (selectedPerson?.childrenId.length) {
+        const child = this._people.find(person => person.id === selectedPerson?.childrenId[0]);
+        child?.mothersId.includes(selectedPerson.id) ? newPerson.mothersId.push(this._selectedId) : newPerson.fathersId.push(this._selectedId);
+      } else {
+        selectedPerson?.sex === 'female' ? newPerson.mothersId.push(this._selectedId) : newPerson.fathersId.push(this._selectedId);
+      }
       selectedPerson?.childrenId?.push(newPerson.id);
     }
 
@@ -78,7 +83,7 @@ export class AppComponent implements OnDestroy {
   }
 
   public _clear() {
-    this._people = [new PersonModel(0, 'Name', 'female')];
+    this._people = [new PersonModel(0, 'name', 'female')];
     this._countId = 1;
     this._selectedId = 0;
     this._selectFamily();

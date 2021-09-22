@@ -23,7 +23,7 @@ export class PersonComponent {
   }
 
   public _addPerson(info: any) {
-    const sex = info.role === 'father' || info.role === 'son' ? 'male' : 'female';
+    const sex = info.role === 'father' ? 'male' : 'female';
     this._personTracking.addNew({ sex, ...info });
   }
 
