@@ -16,16 +16,20 @@ export class AppComponent implements OnDestroy {
   private _selectedId = 0;
   public _selectedFamily = this._selectFamily();
 
-  private _changeInfoSubscription?: Subscription;
-  private _addPersonSubscription?: Subscription;
+  private _subscriptions: Subscription[] = [];
 
   constructor(private _personTracking: PersonTracking) {
-    this._changeInfoSubscription = this._personTracking.changeInfoObservable.subscribe(info => {
-      this._changeInfo(info);
-    });
-    this._addPersonSubscription = this._personTracking.addNewObservable.subscribe(info => {
-      this._addPerson(info);
-    });
+    this._subscriptions.push(
+      this._personTracking.changeInfoObservable.subscribe(info => {
+        this._changeInfo(info);
+      }),
+      this._personTracking.addNewObservable.subscribe(info => {
+        this._addPerson(info);
+      }),
+      this._personTracking.selectObservable.subscribe(id => {
+        this._selectPerson(id);
+      }),
+    );
   }
 
   public _changeInfo(info: any) {
@@ -54,6 +58,11 @@ export class AppComponent implements OnDestroy {
     this._selectFamily();
   }
 
+  private _selectPerson(id: number) {
+    this._selectedId = id;
+    this._selectFamily();
+  }
+
   private _selectFamily(): any {
     const selectedPerson = this._people.find(person => person.id === this._selectedId);
     return (this._selectedFamily = new FamilyModel(
@@ -65,7 +74,8 @@ export class AppComponent implements OnDestroy {
   }
 
   public ngOnDestroy() {
-    this._changeInfoSubscription?.unsubscribe();
-    this._addPersonSubscription?.unsubscribe();
+    for (const subscription of this._subscriptions) {
+      subscription.unsubscribe();
+    }
   }
 }

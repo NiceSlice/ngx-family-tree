@@ -24,4 +24,10 @@ export class PersonComponent {
     const sex = info.role === 'father' || info.role === 'son' ? 'male' : 'female';
     this._personTracking.addNew({ sex, ...info });
   }
+
+  public _selectPerson() {
+    if (!this.selected && this.person?.id !== undefined) {
+      this._personTracking.select(this.person.id);
+    }
+  }
 }

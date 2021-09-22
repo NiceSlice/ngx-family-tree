@@ -1,4 +1,4 @@
-<div class="person">
+<div class="person" (click)="_selectPerson()">
   <div *ngIf="!_editable" [ngClass]="!selected ? ['person-info', 'selectable'] : 'person-info'">
     <div>{{ person?.name }}</div>
     <button *ngIf="selected" (click)="_editable = !_editable">edit</button>
