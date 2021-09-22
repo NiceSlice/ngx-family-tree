@@ -22,7 +22,22 @@
   .selected-person {
     display: flex;
 
-    .add-person {
+    .person-info-selected {
+      position: relative;
+
+      .edit-button {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+      }
+      .add-button {
+        position: absolute;
+        bottom: 0.5rem;
+        right: 0.5rem;
+      }
+    }
+
+    .person-tab {
       background-color: rgb(146, 190, 231);
       padding: 2rem;
       border-radius: 10px;

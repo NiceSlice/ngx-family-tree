@@ -3,28 +3,26 @@
     <div>{{ role }}</div>
     <div>{{ person?.name }}</div>
     <div>{{ person?.sex }}</div>
-    <button *ngIf="selected" (click)="_editable = !_editable">edit</button>
   </div>
 
   <div *ngIf="selected" class="selected-person">
-    <div class="person-info">
-      <div *ngIf="!_editable">
-        <div>{{ person?.name }}</div>
-        <div>{{ person?.sex }}</div>
-        <button *ngIf="selected" (click)="_editable = !_editable">edit</button>
-      </div>
-
-      <div *ngIf="_editable">
-        <input #nameInput [value]="person?.name" />
-        <select #sexInput [value]="person?.sex">
-          <option>male</option>
-          <option>female</option>
-        </select>
-        <button (click)="_editable = !_editable; _changeInfo({ name: nameInput.value, sex: sexInput.value })">save</button>
-      </div>
+    <div class="person-info person-info-selected">
+      <button (click)="_editPersonTab = !_editPersonTab; _addPersonTab = false" class="edit-button">edit</button>
+      <button (click)="_addPersonTab = !_addPersonTab; _editPersonTab = false" class="add-button">add</button>
+      <div>{{ person?.name }}</div>
+      <div>{{ person?.sex }}</div>
     </div>
 
-    <div class="add-person">
+    <div *ngIf="_editPersonTab" class="person-tab">
+      <input #nameInput [value]="person?.name" />
+      <select #sexInput [value]="person?.sex">
+        <option>male</option>
+        <option>female</option>
+      </select>
+      <button (click)="_editPersonTab = !_editPersonTab; _changeInfo({ name: nameInput.value, sex: sexInput.value })">save</button>
+    </div>
+
+    <div *ngIf="_addPersonTab" class="person-tab">
       <div>
         <span>Add</span>
         <select #newPersonRole>
@@ -35,7 +33,7 @@
       </div>
       <div>
         <input #newPersonNameInput />
-        <button (click)="_addPerson({ name: newPersonNameInput. value, role: newPersonRole.value })">save</button>
+        <button (click)="_addPerson({ name: newPersonNameInput.value, role: newPersonRole.value })">save</button>
       </div>
     </div>
   </div>

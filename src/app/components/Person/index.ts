@@ -14,7 +14,8 @@ export class PersonComponent {
   public role?: string;
   @Input()
   public selected = false;
-  public _editable = false;
+  public _editPersonTab = false;
+  public _addPersonTab = false;
 
   constructor(private _personTracking: PersonTracking) {}
 
