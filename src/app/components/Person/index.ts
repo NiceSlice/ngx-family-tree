@@ -11,6 +11,8 @@ export class PersonComponent {
   @Input()
   public person?: PersonModel;
   @Input()
+  public role?: string;
+  @Input()
   public selected = false;
   public _editable = false;
 

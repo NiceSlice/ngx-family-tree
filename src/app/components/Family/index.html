@@ -1,7 +1,7 @@
 <div class="family">
   <div class="person-row">
-    <ngx-person *ngFor="let father of family?.fathers" [person]="father"></ngx-person>
-    <ngx-person *ngFor="let mother of family?.mothers" [person]="mother"></ngx-person>
+    <ngx-person *ngFor="let father of family?.fathers" [person]="father" role="father"></ngx-person>
+    <ngx-person *ngFor="let mother of family?.mothers" [person]="mother" role="mother"></ngx-person>
   </div>
 
   <div class="person-row">
@@ -9,6 +9,6 @@
   </div>
 
   <div class="person-row">
-    <ngx-person *ngFor="let child of family?.children" [person]="child"></ngx-person>
+    <ngx-person *ngFor="let child of family?.children" [person]="child" role="child"></ngx-person>
   </div>
 </div>
