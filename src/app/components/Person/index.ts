@@ -1,4 +1,6 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { PersonModel } from 'src/app/data';
+import { PersonTracking } from 'src/app/services';
 
 @Component({
   selector: 'ngx-person',
@@ -7,24 +9,19 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class PersonComponent {
   @Input()
-  public id?: number;
+  public person?: PersonModel;
   @Input()
-  public name?: string;
-
-  public selected = true;
-
-  @Output()
-  public changeInfo = new EventEmitter<any>();
-  @Output()
-  public addPerson = new EventEmitter<any>();
-
+  public selected = false;
   public _editable = false;
 
+  constructor(private _personTracking: PersonTracking) {}
+
   public _changeInfo(info: any) {
-    this.changeInfo.emit({ id: this.id, ...info });
+    this._personTracking.changeInfo({ id: this.person?.id, ...info });
   }
 
   public _addPerson(info: any) {
-    this.addPerson.emit({ id: this.id, ...info });
+    const sex = info.role === 'father' || info.role === 'son' ? 'male' : 'female';
+    this._personTracking.addNew({ sex, ...info });
   }
 }

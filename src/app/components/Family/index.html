@@ -1,0 +1,14 @@
+<div class="family">
+  <div class="person-row">
+    <ngx-person *ngFor="let father of family?.fathers" [person]="father"></ngx-person>
+    <ngx-person *ngFor="let mother of family?.mothers" [person]="mother"></ngx-person>
+  </div>
+
+  <div class="person-row">
+    <ngx-person [person]="family?.selectedPerson" [selected]="true"></ngx-person>
+  </div>
+
+  <div class="person-row">
+    <ngx-person *ngFor="let child of family?.children" [person]="child"></ngx-person>
+  </div>
+</div>

@@ -1,9 +1,3 @@
 <div class="container">
-  <ngx-person
-    *ngFor="let person of _people"
-    [id]="person.id"
-    [name]="person.name"
-    (changeInfo)="_changeInfo($event)"
-    (addPerson)="_addPerson($event)"
-  ></ngx-person>
+  <ngx-family [family]="_selectedFamily"></ngx-family>
 </div>

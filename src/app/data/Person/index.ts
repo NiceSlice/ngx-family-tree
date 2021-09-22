@@ -3,8 +3,8 @@ export class PersonModel {
     public id: number,
     public name: string,
     public sex: 'male' | 'female',
-    public fatherId?: number,
-    public motherId?: number,
-    public childrenId?: number[],
+    public fathersId: number[] = [],
+    public mothersId: number[] = [],
+    public childrenId: number[] = [],
   ) {}
 }
