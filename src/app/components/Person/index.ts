@@ -23,7 +23,8 @@ export class PersonComponent {
     this._personTracking.changeInfo({ id: this.person?.id, ...info });
   }
 
-  public _addPerson(info: any) {
+  public _addPerson(info: any, input: HTMLInputElement) {
+    input.value = '';
     const sex = info.role === 'father' ? 'male' : 'female';
     this._personTracking.addNew({ sex, ...info });
   }

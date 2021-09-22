@@ -33,7 +33,7 @@
       </div>
       <div>
         <input #newPersonNameInput />
-        <button (click)="_addPerson({ name: newPersonNameInput.value, role: newPersonRole.value })">save</button>
+        <button (click)="_addPerson({ name: newPersonNameInput.value, role: newPersonRole.value }, newPersonNameInput)">save</button>
       </div>
     </div>
   </div>
