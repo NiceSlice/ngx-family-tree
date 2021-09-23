@@ -1,8 +1,8 @@
 <div class="person" (click)="_selectPerson()">
   <div *ngIf="!selected" class="person-info selectable">
-    <div>{{ role }}</div>
+    <div class="text-role">{{ role }}</div>
     <div>{{ person?.name | titlecase }}</div>
-    <div>{{ person?.sex }}</div>
+    <!-- <div>{{ person?.sex }}</div> -->
   </div>
 
   <div *ngIf="selected" class="selected-person">
@@ -41,26 +41,39 @@
       </svg>
 
       <div>{{ person?.name | titlecase }}</div>
-      <div>{{ person?.sex }}</div>
+      <!-- <div>{{ person?.sex }}</div> -->
     </div>
 
     <div *ngIf="_editPersonTab" class="person-tab">
-      <input #nameInput [value]="person?.name" />
-      <select #sexInput [value]="person?.sex">
-        <option>male</option>
-        <option>female</option>
-      </select>
-      <button (click)="_editPersonTab = !_editPersonTab; _changeInfo({ name: nameInput.value, sex: sexInput.value })">save</button>
+      <div class="input-wrapper">
+        <input class="input-group input-group-sm mb-3" #nameInput [value]="person?.name | titlecase" />
+        <select class="form-select form-select-sm mb-3" #sexInput [value]="person?.sex">
+          <option>male</option>
+          <option>female</option>
+        </select>
+      </div>
+
+      <button
+        class="btn btn-outline-primary btn-sm btn-save"
+        (click)="_editPersonTab = !_editPersonTab; _changeInfo({ name: nameInput.value, sex: sexInput.value })"
+      >
+        save
+      </button>
     </div>
 
     <div *ngIf="_addPersonTab" class="person-tab">
-      <input #newPersonNameInput />
-      <select #newPersonRole>
-        <option>father</option>
-        <option>mother</option>
-        <option>child</option>
-      </select>
-      <button (click)="_addPerson({ name: newPersonNameInput.value }, newPersonRole.value, newPersonNameInput)">save</button>
+      <div class="input-wrapper">
+        <input class="input-group input-group-sm mb-3" #newPersonNameInput />
+        <select class="form-select form-select-sm mb-3" #newPersonRole>
+          <option>father</option>
+          <option>mother</option>
+          <option>child</option>
+        </select>
+      </div>
+
+      <button class="btn btn-outline-primary btn-sm btn-save" (click)="_addPerson({ name: newPersonNameInput.value }, newPersonRole.value, newPersonNameInput)">
+        save
+      </button>
     </div>
   </div>
 </div>
