@@ -9,7 +9,7 @@ import { PersonTracking } from './services';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnDestroy {
-  title = 'ngx-family-tree';
+  public title = 'ngx-family-tree';
 
   public _people = [new PersonModel(0, 'name', 'female')];
   private _countId = 1;
@@ -23,8 +23,8 @@ export class AppComponent implements OnDestroy {
       this._personTracking.changeInfoObservable.subscribe(info => {
         this._changeInfo(info);
       }),
-      this._personTracking.addNewObservable.subscribe(info => {
-        this._addPerson(info);
+      this._personTracking.addNewObservable.subscribe(([info, role]) => {
+        this._addPerson(info, role);
       }),
       this._personTracking.selectObservable.subscribe(id => {
         this._selectPerson(id);
@@ -33,22 +33,22 @@ export class AppComponent implements OnDestroy {
     this._getData();
   }
 
-  public _changeInfo(info: any) {
+  public _changeInfo(info: Partial<PersonModel>) {
     this._people.map(person => {
       if (person.id === info.id) Object.assign(person, info);
     });
     this._storeData();
   }
 
-  public _addPerson(info: any) {
-    const newPerson = new PersonModel(this._countId, info.name, info.sex);
+  public _addPerson(info: Partial<PersonModel>, role: string) {
     const selectedPerson = this._people.find(person => person.id === this._selectedId);
+    const newPerson = new PersonModel(this._countId, info.name as string, info.sex as string);
     this._countId++;
 
-    if (info.role === 'father') {
+    if (role === 'father') {
       newPerson.childrenId?.push(this._selectedId);
       (selectedPerson as PersonModel).fathersId.push(newPerson.id);
-    } else if (info.role === 'mother') {
+    } else if (role === 'mother') {
       newPerson.childrenId?.push(this._selectedId);
       (selectedPerson as PersonModel).mothersId.push(newPerson.id);
     } else {
@@ -91,19 +91,16 @@ export class AppComponent implements OnDestroy {
   }
 
   private _storeData() {
-    this._localStorage.setItem('familyTree', JSON.stringify(this._people));
-    this._localStorage.setItem('familyTreeCountId', String(this._countId));
-    this._localStorage.setItem('familyTreeSelected', String(this._selectedId));
+    this._localStorage.setItem('familyTreeData', JSON.stringify({ people: this._people, countId: this._countId, selectedId: this._selectedId }));
   }
 
   private _getData() {
-    const familyTree = this._localStorage.getItem('familyTree');
-    const familyTreeCountId = this._localStorage.getItem('familyTreeCountId');
-    const familyTreeSelected = this._localStorage.getItem('familyTreeSelected');
-    if (familyTree !== null && familyTreeCountId !== null && familyTreeSelected !== null) {
-      this._people = JSON.parse(familyTree);
-      this._countId = Number(familyTreeCountId);
-      this._selectedId = Number(familyTreeSelected);
+    const data = this._localStorage.getItem('familyTreeData');
+    if (data !== null) {
+      const parsedData = JSON.parse(data);
+      this._people = parsedData.people;
+      this._countId = parsedData.countId;
+      this._selectedId = parsedData.selectedId;
     }
     this._selectFamily();
   }

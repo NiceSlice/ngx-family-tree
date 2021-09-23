@@ -19,14 +19,16 @@ export class PersonComponent {
 
   constructor(private _personTracking: PersonTracking) {}
 
-  public _changeInfo(info: any) {
+  public _changeInfo(info: Partial<PersonModel>) {
     this._personTracking.changeInfo({ id: this.person?.id, ...info });
   }
 
-  public _addPerson(info: any, input: HTMLInputElement) {
-    input.value = '';
-    const sex = info.role === 'father' ? 'male' : 'female';
-    this._personTracking.addNew({ sex, ...info });
+  public _addPerson(info: Partial<PersonModel>, role: string, input: HTMLInputElement) {
+    if (input.value.length) {
+      input.value = '';
+      const sex = role === 'father' ? 'male' : 'female';
+      this._personTracking.addNew({ sex, ...info }, role);
+    }
   }
 
   public _selectPerson() {

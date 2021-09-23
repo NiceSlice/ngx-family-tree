@@ -54,18 +54,13 @@
     </div>
 
     <div *ngIf="_addPersonTab" class="person-tab">
-      <div>
-        <span>Add</span>
-        <select #newPersonRole>
-          <option>father</option>
-          <option>mother</option>
-          <option>child</option>
-        </select>
-      </div>
-      <div>
-        <input #newPersonNameInput />
-        <button (click)="_addPerson({ name: newPersonNameInput.value, role: newPersonRole.value }, newPersonNameInput)">save</button>
-      </div>
+      <input #newPersonNameInput />
+      <select #newPersonRole>
+        <option>father</option>
+        <option>mother</option>
+        <option>child</option>
+      </select>
+      <button (click)="_addPerson({ name: newPersonNameInput.value }, newPersonRole.value, newPersonNameInput)">save</button>
     </div>
   </div>
 </div>
