@@ -1,7 +1,6 @@
 .person {
   display: flex;
   margin: 1rem;
-  cursor: pointer;
 
   .person-info {
     min-height: 10rem;
@@ -29,6 +28,7 @@
   }
 
   .selectable {
+    cursor: pointer;
     &:hover {
       background-color: rgb(250, 250, 250);
     }

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { PersonModel } from 'src/app/data';
 import { PersonTracking } from 'src/app/services';
 
@@ -7,7 +7,7 @@ import { PersonTracking } from 'src/app/services';
   templateUrl: './index.html',
   styleUrls: ['./style.scss'],
 })
-export class PersonComponent {
+export class PersonComponent implements OnChanges {
   @Input()
   public person?: PersonModel;
   @Input()
@@ -20,6 +20,11 @@ export class PersonComponent {
   public clickEvent = new EventEmitter<void>();
 
   constructor(private _personTracking: PersonTracking) {}
+
+  public ngOnChanges(): void {
+    this._editPersonTab = false;
+    this._addPersonTab = false;
+  }
 
   public _changeInfo(info: Partial<PersonModel>) {
     this._personTracking.changeInfo({ id: this.person?.id, ...info });
@@ -39,7 +44,6 @@ export class PersonComponent {
   }
 
   public _toggleIsExpanded() {
-    console.log('click');
     this.clickEvent.emit();
   }
 }
