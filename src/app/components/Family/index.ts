@@ -9,4 +9,5 @@ import { FamilyModel } from 'src/app/data';
 export class FamilyComponent {
   @Input()
   public family?: FamilyModel;
+  public _isExpanded = false;
 }

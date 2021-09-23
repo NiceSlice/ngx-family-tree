@@ -1,9 +1,9 @@
-<div class="person-row person-row-top">
+<div *ngIf="_isExpanded" class="person-row person-row-top">
   <ngx-person *ngFor="let parent of family?.parents" [person]="parent" role="parent"></ngx-person>
 </div>
 
-<ngx-person [person]="family?.selectedPerson" [selected]="true" class="person-row person-row-middle"></ngx-person>
+<ngx-person (click)="_isExpanded = !_isExpanded" [person]="family?.selectedPerson" [selected]="_isExpanded" class="person-row person-row-middle"></ngx-person>
 
-<div class="person-row person-row-bottom">
+<div *ngIf="_isExpanded" class="person-row person-row-bottom">
   <ngx-person *ngFor="let child of family?.children" [person]="child" role="child"></ngx-person>
 </div>

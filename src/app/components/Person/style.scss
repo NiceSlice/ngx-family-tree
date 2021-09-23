@@ -1,6 +1,7 @@
 .person {
   display: flex;
   margin: 1rem;
+  cursor: pointer;
 
   .person-info {
     min-height: 10rem;
@@ -15,20 +16,19 @@
     transition: 100ms;
     position: relative;
 
-    .text-top-1 {
+    .text-top {
       position: absolute;
       top: 0.3rem;
       left: 0.5rem;
+      display: flex;
+      flex-direction: column;
     }
-    .text-top-2 {
-      position: absolute;
-      top: 1.6rem;
-      left: 0.5rem;
+    .text-name {
+      font-weight: 600;
     }
   }
 
   .selectable {
-    cursor: pointer;
     &:hover {
       background-color: rgb(250, 250, 250);
     }
