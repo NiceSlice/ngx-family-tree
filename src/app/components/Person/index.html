@@ -45,25 +45,23 @@
     </div>
 
     <div *ngIf="_editPersonTab" class="person-tab">
+      <label class="form-label">Edit</label>
       <div class="input-wrapper">
-        <input class="input-group input-group-sm mb-3" #nameInput [value]="person?.name | titlecase" />
+        <input class="input-group input-group-sm mb-3" placeholder="Name" #nameInput [value]="person?.name | titlecase" />
         <select class="form-select form-select-sm mb-3" #sexInput [value]="person?.sex">
           <option>male</option>
           <option>female</option>
         </select>
       </div>
 
-      <button
-        class="btn btn-outline-primary btn-sm btn-save"
-        (click)="_editPersonTab = !_editPersonTab; _changeInfo({ name: nameInput.value, sex: sexInput.value })"
-      >
-        save
-      </button>
+      <button class="btn btn-dark btn-sm" (click)="_editPersonTab = !_editPersonTab; _changeInfo({ name: nameInput.value, sex: sexInput.value })">save</button>
+      <button class="btn btn-outline-secondary btn-sm btn-cancel" (click)="_editPersonTab = !_editPersonTab">cancel</button>
     </div>
 
     <div *ngIf="_addPersonTab" class="person-tab">
+      <label class="form-label">Add</label>
       <div class="input-wrapper">
-        <input class="input-group input-group-sm mb-3" #newPersonNameInput />
+        <input class="input-group input-group-sm mb-3" placeholder="Name" #newPersonNameInput />
         <select class="form-select form-select-sm mb-3" #newPersonRole>
           <option>parent</option>
           <option>child</option>
@@ -75,11 +73,12 @@
       </div>
 
       <button
-        class="btn btn-outline-primary btn-sm btn-save"
+        class="btn btn-dark btn-sm"
         (click)="_addPerson({ name: newPersonNameInput.value, sex: newPersonSex.value  }, newPersonRole.value, newPersonNameInput)"
       >
         save
       </button>
+      <button class="btn btn-outline-secondary btn-sm btn-cancel" (click)="_addPersonTab = !_addPersonTab">cancel</button>
     </div>
   </div>
 </div>
