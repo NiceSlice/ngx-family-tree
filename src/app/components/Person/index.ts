@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { PersonModel } from 'src/app/data';
 import { PersonTracking } from 'src/app/services';
 
@@ -16,6 +16,8 @@ export class PersonComponent {
   public selected = false;
   public _editPersonTab = false;
   public _addPersonTab = false;
+  @Output()
+  public clickEvent = new EventEmitter<void>();
 
   constructor(private _personTracking: PersonTracking) {}
 
@@ -34,5 +36,10 @@ export class PersonComponent {
     if (!this.selected && this.person?.id !== undefined) {
       this._personTracking.select(this.person.id);
     }
+  }
+
+  public _toggleIsExpanded() {
+    console.log('click');
+    this.clickEvent.emit();
   }
 }
