@@ -2,4 +2,24 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  position: absolute;
+  width: max-content;
+}
+
+.person-row-top {
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.person-row-middle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.person-row-bottom {
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

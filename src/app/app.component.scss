@@ -4,4 +4,17 @@
   align-items: center;
   justify-content: center;
   height: 100%;
+  position: relative;
+
+  .family {
+    position: relative;
+    height: 100%;
+    width: 100%;
+  }
+
+  .clear-button {
+    position: absolute;
+    left: 2rem;
+    bottom: 2rem;
+  }
 }
