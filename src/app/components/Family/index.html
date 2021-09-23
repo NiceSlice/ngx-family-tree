@@ -1,6 +1,5 @@
 <div class="person-row person-row-top">
-  <ngx-person *ngFor="let father of family?.fathers" [person]="father" role="father"></ngx-person>
-  <ngx-person *ngFor="let mother of family?.mothers" [person]="mother" role="mother"></ngx-person>
+  <ngx-person *ngFor="let parent of family?.parents" [person]="parent" role="parent"></ngx-person>
 </div>
 
 <ngx-person [person]="family?.selectedPerson" [selected]="true" class="person-row person-row-middle"></ngx-person>

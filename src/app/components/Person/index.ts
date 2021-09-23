@@ -26,8 +26,7 @@ export class PersonComponent {
   public _addPerson(info: Partial<PersonModel>, role: string, input: HTMLInputElement) {
     if (input.value.length) {
       input.value = '';
-      const sex = role === 'father' ? 'male' : 'female';
-      this._personTracking.addNew({ sex, ...info }, role);
+      this._personTracking.addNew(info, role);
     }
   }
 

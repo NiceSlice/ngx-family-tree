@@ -45,20 +45,12 @@ export class AppComponent implements OnDestroy {
     const newPerson = new PersonModel(this._countId, info.name as string, info.sex as string);
     this._countId++;
 
-    if (role === 'father') {
+    if (role === 'parent') {
       newPerson.childrenId?.push(this._selectedId);
-      (selectedPerson as PersonModel).fathersId.push(newPerson.id);
-    } else if (role === 'mother') {
-      newPerson.childrenId?.push(this._selectedId);
-      (selectedPerson as PersonModel).mothersId.push(newPerson.id);
+      (selectedPerson as PersonModel).parentsId.push(newPerson.id);
     } else {
-      if (selectedPerson?.childrenId.length) {
-        const child = this._people.find(person => person.id === selectedPerson?.childrenId[0]);
-        child?.mothersId.includes(selectedPerson.id) ? newPerson.mothersId.push(this._selectedId) : newPerson.fathersId.push(this._selectedId);
-      } else {
-        selectedPerson?.sex === 'female' ? newPerson.mothersId.push(this._selectedId) : newPerson.fathersId.push(this._selectedId);
-      }
-      selectedPerson?.childrenId?.push(newPerson.id);
+      newPerson.parentsId?.push(this._selectedId);
+      (selectedPerson as PersonModel).childrenId.push(newPerson.id);
     }
 
     this._people.push(newPerson);
@@ -76,8 +68,7 @@ export class AppComponent implements OnDestroy {
     const selectedPerson = this._people.find(person => person.id === this._selectedId);
     return (this._selectedFamily = new FamilyModel(
       selectedPerson,
-      this._people.filter(person => selectedPerson?.fathersId?.includes(person.id)),
-      this._people.filter(person => selectedPerson?.mothersId?.includes(person.id)),
+      this._people.filter(person => selectedPerson?.parentsId?.includes(person.id)),
       this._people.filter(person => selectedPerson?.childrenId?.includes(person.id)),
     ));
   }
